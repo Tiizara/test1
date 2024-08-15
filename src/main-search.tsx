@@ -2,26 +2,12 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useAppSelector } from "./store/hook";
 import { useState } from "react";
 import styles from "./main-search.module.sass";
-import { StateRow } from "./stateRow";
+import { StateRow, StateRowProps } from "./stateRow";
 
-interface MainSearch {
-  search: string;
-  button: boolean;
-  setButtonState: Function;
-}
-
-function MainSearch({ search, button, setButtonState }: MainSearch) {
+function MainSearch() {
   const { rows, columns } = useAppSelector((state) => state.repositoriesSlice);
 
-  const searchItems = rows.filter((row) => {
-    if (search === "") {
-      setButtonState(false);
-    } else if (row.name.toLowerCase().includes(search.toLowerCase())) {
-      return row;
-    }
-  });
-
-  const [stateRow, setStateRow] = useState({});
+  const [stateRow, setStateRow] = useState<StateRowProps | null>(null);
   console.log(stateRow);
 
   return (
@@ -33,7 +19,7 @@ function MainSearch({ search, button, setButtonState }: MainSearch) {
         <div className={styles.section}>
           <div className={styles.containerDataGrid}>
             <DataGrid
-              rows={button ? searchItems : rows}
+              rows={rows}
               columns={columns}
               initialState={{
                 pagination: {
@@ -45,11 +31,7 @@ function MainSearch({ search, button, setButtonState }: MainSearch) {
             />
           </div>
           <div className={styles.containerRow}>
-            {Object.keys(stateRow).length > 0 ? (
-              <StateRow stateRow={stateRow} />
-            ) : (
-              ""
-            )}
+            {stateRow ? <StateRow stateRow={stateRow} /> : ""}
           </div>
         </div>
       </div>

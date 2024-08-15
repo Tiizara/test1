@@ -3,7 +3,7 @@ import styles from "./App.module.sass";
 
 export interface SearchType {
   search: string;
-  setSearch: Function;
+  setSearch: (value: string) => void;
 }
 export const Search = ({ search, setSearch }: SearchType) => {
   return (
@@ -11,10 +11,10 @@ export const Search = ({ search, setSearch }: SearchType) => {
       value={search}
       onChange={(e) => setSearch(e.target.value)}
       className={styles.textfield}
-      id="filled-basic"
-      label="Поисковой запрос"
-      variant="filled"
-      size="small"
+      id='filled-basic'
+      label='Поисковой запрос'
+      variant='filled'
+      size='small'
     />
   );
 };

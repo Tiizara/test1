@@ -1,12 +1,23 @@
 import styles from "./state-row.module.sass";
 
-export function StateRow({ stateRow }: any) {
-  // const license = () => {
-  //   for (var keys in stateRow.license) {
-  //     return stateRow.license[keys];
-  //   }
-  // };
+export interface StateRowProps {
+  name: string;
+  language: string;
+  numStar: number;
+  description: string;
+  license: {
+    key: string;
+    name: string;
+    node_id: string;
+    spdx_id: string;
+  };
+}
 
+interface Props {
+  stateRow: StateRowProps;
+}
+
+export function StateRow({ stateRow }: Props) {
   return (
     <>
       <div className={styles.box}>
@@ -16,13 +27,15 @@ export function StateRow({ stateRow }: any) {
           <div className={styles.star}>{stateRow.numStar}</div>
         </div>
         <div className={styles.boxValue}>
-          {Object.values(stateRow.license).map((value, index) => {
-            return (
-              <div className={styles.value} key={index}>
-                <p>{value}</p>
-              </div>
-            );
-          })}
+          {stateRow.license
+            ? Object.values(stateRow.license).map((value, index) => {
+                return (
+                  <div className={styles.value} key={index}>
+                    <p>{value}</p>
+                  </div>
+                );
+              })
+            : ""}
         </div>
         <p>{stateRow.description}</p>
       </div>

@@ -1,6 +1,6 @@
 import { GridColDef } from "@mui/x-data-grid";
 
-export interface Rows{
+export interface Rows {
   name: string;
   language: string;
   numFork: number;
@@ -11,7 +11,7 @@ export interface Rows{
 
 interface InitialState {
   isLoading: boolean;
-  error: string;
+  error: boolean;
   columns: GridColDef[];
   rows: Rows[];
 }
@@ -30,7 +30,7 @@ const initialState: InitialState = {
   ],
   rows: [],
   isLoading: false,
-  error: "",
+  error: false,
 };
 
 export { initialState };

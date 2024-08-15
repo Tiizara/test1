@@ -4,7 +4,7 @@ import { MainSearch } from "./main-search";
 import { Search } from "./search";
 import { useState } from "react";
 import { fetchRepositories } from "./store/action-creator";
-import { useAppDispatch } from "./store/hook";
+import { useAppDispatch, useAppSelector } from "./store/hook";
 import { WelcomeDrawer } from "./welcome-drawer";
 
 function App() {
@@ -18,6 +18,8 @@ function App() {
     setButtonState(true);
   };
 
+  const { error } = useAppSelector((state) => state.repositoriesSlice);
+
   return (
     <>
       <div className={styles.container}>
@@ -25,20 +27,17 @@ function App() {
           <Search search={search} setSearch={setSearch} />
         </div>
         <div className={styles.button}>
-          <Button size='large' onClick={handleClick} variant="contained">
+          <Button
+            disabled={search.trim().length > 0 ? false : true}
+            size='large'
+            onClick={handleClick}
+            variant='contained'
+          >
             Искать
           </Button>
         </div>
       </div>
-      {buttonState ? (
-        <MainSearch
-          button={buttonState}
-          search={search}
-          setButtonState={setButtonState}
-        />
-      ) : (
-        <WelcomeDrawer />
-      )}
+      {error ? "Trr" : buttonState ? <MainSearch /> : <WelcomeDrawer />}
     </>
   );
 }
