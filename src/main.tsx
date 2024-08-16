@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
+import App from "./app/App.tsx";
 import "./index.module.sass";
 import { Provider } from "react-redux";
-import { store } from "./store/store.ts";
+import { store } from './store/store.ts';
 
 const setupStore = store();
 

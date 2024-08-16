@@ -2,25 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchRepositories } from "./action-creator";
 import { initialState, Rows } from "./initial-state";
 import { SearchResponse } from "../type";
+import { formatDate } from "../formatDate";
 
-function formatDate(isoString: string) {
-  const date = new Date(isoString);
-
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
-  const seconds = String(date.getSeconds()).padStart(2, "0");
-
-  return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
-}
+/**
+ * Сопоставляет SearchResponse с массивом объектов Rows
+ *
+ * @param {SearchResponse} response - SearchResponse для сопоставления
+ * @returns {Rows[]} - Массив объектов Rows
+ */
 
 const mapResponse = (response: SearchResponse): Rows[] => {
   return response.items.map((res) => {
     return {
       name: res.name,
-      language: res.language,
+      language: res.language ? res.language : 'Язык не определен',
       numFork: res.forks,
       numStar: res.stargazers_count,
       dataReplace: formatDate(res.updated_at),

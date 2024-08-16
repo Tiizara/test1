@@ -1,8 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SearchResponse } from "../type";
-/**
- * 
+
+/** Получение репозиториев из API GitHub
+ * @param {string} query - Поисковый запрос для получения репозиториев
+ * @returns {Promise<SearchResponse>} - Promise, которое преобразуется в объект SearchResponse
+ * @throws {string} - Сообщение об ошибке при неудачном запросе
  */
+
 export const fetchRepositories = createAsyncThunk<
   SearchResponse,
   string,
